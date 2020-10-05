@@ -177,7 +177,8 @@ function _M.new(self, broker_list, client_config)
         keepalive_timeout = opts.keepalive_timeout or 600 * 1000,   -- 10 min
         keepalive_size = opts.keepalive_size or 2,
         ssl = opts.ssl or false,
-        ssl_verify = opts.ssl_verify or false
+        ssl_verify = opts.ssl_verify or false,
+        dont_receive = opts.required_acks and opts.required_acks == 0
     }
 
     local cli = setmetatable({

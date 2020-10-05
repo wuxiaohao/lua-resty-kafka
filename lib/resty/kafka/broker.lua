@@ -52,6 +52,11 @@ function _M.send_receive(self, request)
 
     local data, err = sock:receive(4)
     if not data then
+        if self.config.dont_receive then
+            sock:setkeepalive(self.config.keepalive_timeout, self.config.keepalive_size)
+            return nil, "dont receive"
+        end
+
         if err == "timeout" then
             sock:close()
             return nil, err

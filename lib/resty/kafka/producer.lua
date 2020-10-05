@@ -186,6 +186,8 @@ local function _send(self, broker_conf, topic_partitions)
             end
 
             return
+        elseif self.socket_config.dont_receive then
+            return
         end
     end
 
@@ -215,6 +217,10 @@ local function _batch_send(self, sendbuffer)
 
         if sendbuffer:done() then
             return true
+        end
+
+        if self.socket_config.dont_receive then
+            return false
         end
 
         self.client:refresh()
