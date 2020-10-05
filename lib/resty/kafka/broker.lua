@@ -28,7 +28,8 @@ function _M.send_receive(self, request)
         return nil, err, true
     end
 
-    sock:settimeout(self.config.socket_timeout)
+  --sock:settimeout(self.config.socket_timeout)
+    sock:settimeouts(self.config.connect_timeout,self.config.send_timeout,self.config.read_timeout)
 
     local ok, err = sock:connect(self.host, self.port)
     if not ok then
